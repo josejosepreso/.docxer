@@ -1,34 +1,18 @@
-const Docxtemplater = require("docxtemplater");
-const PizZip = require("pizzip");
+const microserviceTable = require("./src/components/microservice_table");
+const databaseScriptTable = require("./src/components/database_script_table");
+const Constants = require("./src/const");
 
-const fs = require("fs");
-const path = require("path");
-
-const microServiceTable = require("./components/microservice_table");
-const databaseScriptTable = require("./components/database_script_table");
+const DocxDocument = require("./document");
 const { microservices, scripts } = require("./data");
-const Constants = require("./const.js");
 
-const content = fs.readFileSync(
-    path.resolve(__dirname, "input.docx"),
-    "binary"
-);
-
-const zip = new PizZip(content);
-
-const doc = new Docxtemplater(zip, {
-    paragraphLoop: true,
-    linebreaks: true,
-});
+const doc = new DocxDocument(Constants.INPUT_FILE);
 
 doc.render({
-    rawMicroserviceTable: (urlPullReq) => microServiceTable
+    rawMicroserviceTable: (urlPullReq) => microserviceTable
         .replaceAll(Constants.MICROSERVICE_NAME_PARAM, urlPullReq.split("/")[6])
         .replace(Constants.MICROSERVICE_PULL_REQUEST_PARAM, urlPullReq)
         .replace(Constants.MICROSERVICE_REPO_PARAM, urlPullReq.split("/").splice(0, 7).join("/").concat("/browse")),
     microservices: microservices
 });
 
-const buf = doc.toBuffer();
-
-fs.writeFileSync(path.resolve(__dirname, "output.docx"), buf);
+doc.export();

@@ -2,6 +2,9 @@ const Constants = {
 	MICROSERVICE_NAME_PARAM: "{MICROSERVICE_NAME}"
 	, MICROSERVICE_PULL_REQUEST_PARAM: "{MICROSERVICE_PR_URL}"
 	, MICROSERVICE_REPO_PARAM: "{MICROSERVICE_REPO_URL}"
+
+	, INPUT_FILE: "input.docx"
+	, OUTPUT_FILE: "output.docx"
 }
 
 module.exports = Constants;
