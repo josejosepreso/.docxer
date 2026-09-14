@@ -1,5 +1,5 @@
 node_modules
 unzipped
-input.docx
+*input.docx*
 output.docx
 data.js
