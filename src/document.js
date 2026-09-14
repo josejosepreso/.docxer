@@ -9,7 +9,7 @@ const Constants = require("./const.js");
 class DocxDocument {
     constructor(inputFile) {
         const content = fs.readFileSync(
-            path.resolve(__dirname, inputFile),
+            path.resolve(__dirname, "..", inputFile),
             "binary"
         );
 
@@ -21,12 +21,17 @@ class DocxDocument {
         });
     }
 
-    render(data) {
-        this.doc.render(data);
+    static builder(inputFile) {
+        return new DocxDocument(inputFile);
+    }
+
+    render(renderData) {
+        this.doc.render(renderData);
+        return this;
     }
 
     export() {
-        fs.writeFileSync(path.resolve(__dirname, Constants.OUTPUT_FILE), this.doc.toBuffer());
+        fs.writeFileSync(path.resolve(__dirname, "..", Constants.OUTPUT_FILE), this.doc.toBuffer());
     }
 }
 

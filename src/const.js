@@ -5,6 +5,6 @@ const Constants = {
 
 	, INPUT_FILE: "input.docx"
 	, OUTPUT_FILE: "output.docx"
-}
+};
 
 module.exports = Constants;
